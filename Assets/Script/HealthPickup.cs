@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    public int healthAmount = 1;  // Jumlah health yang ditambahkan
+    public int healthAmount = 1;
 
     void Update()
     {
@@ -27,14 +27,11 @@ public class HealthPickup : MonoBehaviour
                 {
                     player.health += healthAmount;
 
-                    // Pastikan tidak melebihi batas maksimum
+                    // Agar health tidak melebihi batas maksimum
                     player.health = Mathf.Clamp(player.health, 0, player.maxHealth);
-
-                    // Perbarui UI health
                     player.UpdateHeartsDisplay();
                 }
 
-                // Hancurkan item setelah digunakan
                 Destroy(gameObject);
             }
         }

@@ -16,7 +16,6 @@ public class PauseMenu : MonoBehaviour
     scoreManager = FindObjectOfType<ScoreManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

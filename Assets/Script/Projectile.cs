@@ -6,12 +6,11 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     public int damage;
-    public float destroyOffset = 1f; // Jarak tambahan sebelum projectile di-destroy
+    public float destroyOffset = 1f;
 
     private Vector3 screenBottomLeft;
     private Vector3 screenTopRight;
 
-    // Start is called before the first frame update
     void Start()
     {
         // Menghitung batas kamera
@@ -19,7 +18,6 @@ public class Projectile : MonoBehaviour
         screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.nearClipPlane)) + new Vector3(destroyOffset, destroyOffset, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Gerakkan projectile ke atas sesuai dengan kecepatan
@@ -35,7 +33,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Hancurkan projectile jika menabrak objek selain player
         if (!collision.CompareTag("Player"))
         {
             Destroy(gameObject);

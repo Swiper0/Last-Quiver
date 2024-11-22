@@ -19,9 +19,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject whiteSprite;
     [SerializeField] private float flashDuration = 0.1f;
     
-    [SerializeField] private Animator animator; // Referensi ke komponen Animator
-    [SerializeField] private float deathAnimationDuration = 1f; // Durasi animasi kematian
-    private bool isDying = false; // Flag untuk mengecek apakah sedang dalam animasi mati
+    [SerializeField] private Animator animator;
+    [SerializeField] private float deathAnimationDuration = 1f;
+    private bool isDying = false;
     [SerializeField] private GameObject itemDropPrefab;
     [SerializeField] private GameObject rapidFirePowerupPrefab; 
     [SerializeField] private float dropChance = 0.2f;
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         healthBar = GetComponentInChildren<HealthBar>();
-        animator = GetComponent<Animator>(); // Dapatkan komponen Animator
+        animator = GetComponent<Animator>();
 
         if (whiteSprite == null)
         {
@@ -153,10 +153,8 @@ IEnumerator Die()
         Instantiate(itemDropPrefab, transform.position, Quaternion.identity);
     }
 
-    // Spawn power-up (misalnya dengan probabilitas tertentu)
     if (Random.value <= 0.2f)
     {
-        // Pastikan prefabs RapidFirePowerup sudah di assign di inspector
         Instantiate(rapidFirePowerupPrefab, transform.position, Quaternion.identity);
     }
 

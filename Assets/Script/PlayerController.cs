@@ -28,14 +28,13 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    // Health and UI
-    public int health = 3;  // Initial health
+    public int health = 3;
     public int maxHealth = 3;
-    public GameObject heartPrefab;  // Prefab for the heart image
-    public Transform heartsContainer;  // Container for hearts UI
+    public GameObject heartPrefab;
+    public Transform heartsContainer;
     private List<GameObject> hearts = new List<GameObject>();
 
-    private bool canTakeDamage = true; // Flag to control damage intake
+    private bool canTakeDamage = true;
 
     public GameObject gameOverPannel;
 
@@ -49,12 +48,11 @@ public class PlayerController : MonoBehaviour
         activeMoveSpeed = speed;
         originalTimeBetweenShots = timeBetweenShots;
 
-        UpdateHeartsDisplay();  // Initialize hearts display
+        UpdateHeartsDisplay();
     }
 
     void Update()
     {
-        // Input and movement handling
         Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         Vector3 newPosition = transform.position + playerInput.normalized * activeMoveSpeed * Time.deltaTime;
 
@@ -65,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = newPosition;
 
-        // Flip character based on input direction
+        // Flip character
         if (playerInput.x < 0 && facingRight)
         {
             Flip();
@@ -124,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     public void ActivateRapidFire(float duration)
     {
-        timeBetweenShots = 0.1f;  // Set kecepatan tembak cepat
+        timeBetweenShots = 0.1f;
 
         // Jika korutin aktif untuk power-up, hentikan dulu agar durasi di-reset
         if (activePowerupCoroutine != null)
@@ -138,9 +136,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ResetFireRateAfterDuration(float duration)
     {
-        yield return new WaitForSeconds(duration);  // Tunggu selama durasi
-        timeBetweenShots = originalTimeBetweenShots;  // Kembali ke nilai awal
-        activePowerupCoroutine = null;  // Reset korutin setelah selesai
+        yield return new WaitForSeconds(duration);
+        timeBetweenShots = originalTimeBetweenShots;
+        activePowerupCoroutine = null;
     }
 
     private void Flip()
@@ -153,19 +151,19 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        if (!canTakeDamage) return; // Prevent damage if cooldown is active
+        if (!canTakeDamage) return;
 
         health -= damageAmount;
-        Debug.Log("Player Health after damage: " + health);  // Log health setelah damage
+        Debug.Log("Player Health after damage: " + health);
 
         
         if (health <= 1)
         {
-            gameOverPanelManager.ShowGameOverPanel(); // Tampilkan panel Game Over
-            UpdateBestScore(); // Update best score
+            gameOverPanelManager.ShowGameOverPanel();
+            UpdateBestScore();
         }
 
-        UpdateHeartsDisplay();  // Perbarui tampilan heart
+        UpdateHeartsDisplay();
 
         // Set cooldown for damage intake
         StartCoroutine(DamageCooldown());
@@ -175,9 +173,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DamageCooldown()
     {
-        canTakeDamage = false; // Disable damage intake
-        yield return new WaitForSeconds(0.5f); // Cooldown time (0.5 seconds)
-        canTakeDamage = true; // Re-enable damage intake
+        canTakeDamage = false;
+        yield return new WaitForSeconds(0.5f);
+        canTakeDamage = true;
     }
 
     public void UpdateHeartsDisplay()
@@ -193,11 +191,11 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < health; i++)
         {
             GameObject heart = Instantiate(heartPrefab, heartsContainer);
-            heart.transform.localPosition = new Vector3(i * 40, 0, 0); // Set posisi heart
+            heart.transform.localPosition = new Vector3(i * 40, 0, 0);
             hearts.Add(heart);
         }
 
-        Debug.Log("Hearts displayed: " + hearts.Count);  // Log jumlah hearts yang ditampilkan
+        Debug.Log("Hearts displayed: " + hearts.Count);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -205,8 +203,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             int damage = other.GetComponent<Enemy>().damageAmount;
-            Debug.Log("Player hit by enemy with damage: " + damage);  // Log damage yang diterima
-            TakeDamage(damage);  // Menggunakan damage dari enemy
+            Debug.Log("Player hit by enemy with damage: " + damage);
+            TakeDamage(damage);
         }
     }
 
@@ -220,8 +218,8 @@ public class PlayerController : MonoBehaviour
         int bestScore = PlayerPrefs.GetInt("BestScore", 0);
         if (ScoreManager.scoreCount > bestScore)
         {
-            PlayerPrefs.SetInt("BestScore", ScoreManager.scoreCount); // Simpan best score
-            PlayerPrefs.Save(); // Simpan perubahan
+            PlayerPrefs.SetInt("BestScore", ScoreManager.scoreCount);
+            PlayerPrefs.Save();
         }
     }
 }

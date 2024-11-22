@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
     public void MusicVolume(float volume)
     {
         musicSource.volume = volume;
-        SaveMusicVolume(volume); // Simpan volume saat diubah
+        SaveMusicVolume(volume);
     }
 
     private void LoadMusicVolume()
@@ -67,7 +67,7 @@ public class AudioManager : MonoBehaviour
 
     private void SaveMusicVolume(float volume)
     {
-        PlayerPrefs.SetFloat(MusicVolumeKey, volume); // Simpan volume ke PlayerPrefs
-        PlayerPrefs.Save(); // Simpan perubahan
+        PlayerPrefs.SetFloat(MusicVolumeKey, volume);
+        PlayerPrefs.Save();
     }
 }

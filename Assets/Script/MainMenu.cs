@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public LevelLoader levelLoader; // Referensi ke LevelLoader
+    public LevelLoader levelLoader;
 
     public void PlayGame()
     {
-        if (levelLoader != null) // Cek jika levelLoader terhubung
+        if (levelLoader != null)
         {
-            levelLoader.LoadNextLevel(); // Panggil LoadNextLevel untuk memulai transisi dan memuat level baru
+            levelLoader.LoadNextLevel();
         }
         else
         {
@@ -20,6 +20,6 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit(); // Keluar dari aplikasi
+        Application.Quit();
     }
 }

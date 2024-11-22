@@ -10,20 +10,16 @@ public class BackgroundScroller : MonoBehaviour
     private float offsetY;
     private Material mat;
 
-    // Start is called before the first frame update
     void Start()
     {
         mat = GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Menghitung offset untuk X dan Y
-        offsetX -= (Time.deltaTime * scrollSpeed) / 10f; // Offset horizontal
-        offsetY -= (Time.deltaTime * scrollSpeed) / 10f; // Offset vertikal (negatif untuk arah bawah)
+        offsetX -= (Time.deltaTime * scrollSpeed) / 10f;
+        offsetY -= (Time.deltaTime * scrollSpeed) / 10f;
 
-        // Mengatur offset pada material
         mat.SetTextureOffset("_MainTex", new Vector2(offsetY, offsetX));
     }
 }

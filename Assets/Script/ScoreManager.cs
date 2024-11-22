@@ -5,19 +5,16 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreText; // Text untuk menampilkan score
-    public Text bestScoreText; // Text untuk menampilkan best score
-    public static int scoreCount; // Score saat ini
-    private static int bestScore; // Best score
+    public Text scoreText;
+    public Text bestScoreText;
+    public static int scoreCount;
+    private static int bestScore;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Inisialisasi best score jika belum ada
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         scoreText.text = "" + Mathf.Round(scoreCount);
@@ -25,21 +22,21 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetScore()
     {
-        scoreCount = 0; // Reset score saat mulai permainan baru
+        scoreCount = 0;
     }
 
     public void UpdateBestScore()
     {
         if (scoreCount > bestScore)
         {
-            bestScore = scoreCount; // Update best score
-            PlayerPrefs.SetInt("BestScore", bestScore); // Simpan best score ke PlayerPrefs
-            PlayerPrefs.Save(); // Simpan perubahan
+            bestScore = scoreCount;
+            PlayerPrefs.SetInt("BestScore", bestScore);
+            PlayerPrefs.Save();
         }
     }
 
     public int GetBestScore()
     {
-        return bestScore; // Mengembalikan best score
+        return bestScore;
     }
 }
